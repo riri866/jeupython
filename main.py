@@ -36,6 +36,7 @@ def main():
         else:
             print("Option invalide, veuillez choisir 1, 2 ou 3.")
 
+
 def commencer():
     pseudo = input("\nEntrez votre nom d'utilisateur : ")
     equipe = choix_equipe()
@@ -50,6 +51,7 @@ def commencer():
     print(f"\nPartie terminée. Score final : {score} vagues.")
     montre_classement()
 
+
 def afficher_personnages(perso):
     print("\nPERSONNAGES DISPONIBLES")
     
@@ -60,6 +62,7 @@ def afficher_personnages(perso):
     for i, stat in enumerate(perso):
         stats = f"ATK:{stat['atk']} | DEF:{stat['defense']} | PV:{stat['pv']}"
         print(f"{i+1}. {stat['nom']} ({stats})")
+
 
 def choix_equipe():
     list_perso = prendre_les_perso_db()

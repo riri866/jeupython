@@ -5,16 +5,16 @@ def get_db():
     return client["tp"]
 
 
-def montre_classement(limit=10):
+def montre_classement(limit=3):
     db = get_db()
     from pymongo import DESCENDING
     meilleur_scores = list(db.scores.find().sort("vagues", DESCENDING).limit(limit))
     
     if not meilleur_scores:
-        print("\nAucun score enregistré pour le moment. Jouez d'abord une partie !\n")
+        print("\nJouer une partie\n")
         return
 
-    print(f"\nCLASSEMENT DES TOP {limit}")
+    print(f"\nClassement des joueurs {limit}")
 
     rang = 1
     for score in meilleur_scores:

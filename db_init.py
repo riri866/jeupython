@@ -31,7 +31,6 @@ def init_db():
         {'nom': 'Squelette', 'atk': 15, 'defense': 7, 'pv': 90}
     ]
 
-    # reset and insert data
     db.perso.delete_many({})
     db.monstre.delete_many({})
     db.scores.delete_many({})
@@ -39,7 +38,6 @@ def init_db():
     db.perso.insert_many(perso)
     db.monstre.insert_many(monstre)
 
-    # Classement des scores
     db.scores.create_index("pseudo", unique=True)
 
 

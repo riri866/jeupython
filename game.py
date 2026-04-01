@@ -1,7 +1,7 @@
 import random
 import time
 from models import Character, Monster
-from utils import get_db, sauvergarde_resulta, save_result
+from utils import get_db, save_result
 
 
 def calculer_degats(attaquant, defenseur):
@@ -68,5 +68,5 @@ def debut_combat(pseudo, equipe):
             print(f"Défaite... : {vague - 1}.")
 
     score_final = vague if equipe_vivante(equipe) else vague - 1
-    sauvergarde_resulta(pseudo, score_final)
+    save_result(pseudo, score_final)
     return score_final
