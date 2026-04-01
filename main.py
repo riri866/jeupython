@@ -13,19 +13,17 @@ def prendre_les_perso_db():
 
 
 def accueil():
-    print("Bienvenue sur RPG ARENA\nCréé par Enric")
+    print("Bienvenue sur RPG ARENA\nCrée par Enric")
     print("\n1. Démarrer le jeu")
     print("2. Afficher le classement")
-    print("3. Initialiser la base de données")
-    print("4. Quitter")
+    print("3. Quitter")
 
 
 def main():
     actions = {
         "1": commencer,
         "2": montre_classement,
-        "3": init_database,
-        "4": quitter
+        "3": quitter
     }
 
     while True:
@@ -88,30 +86,21 @@ def choix_equipe():
             equipe.append(nouveau_membre)
             print(f"\n{supp['nom']} a rejoint l'équipe")
         else:
-            print("Choix invalide, choisis un nombre entre 1 et", len(list_perso))
+            print("Choisis un nombre entre 1 et", len(list_perso))
 
     return equipe
 
 
 def choix_du_joueur(valeur_max):
-    saisie = input(f"Sélection (1-{valeur_max}) : ")
+    saisie = input(f"Selection (1-{valeur_max}) : ")
     
     if saisie.isdigit():
         choix = int(saisie) - 1
         if 0 <= choix < valeur_max:
             return choix
             
-    print("Entrée invalide. Merci de saisir un nombre.")
+    print("Entrée invalide. Tape un nombre.")
     return None
-
-
-def init_database():
-    print("\nInitialisation de la base de données MongoDB...")
-    try:
-        init_db()
-        print("Base de données initialisée (perso, monstre, scores).")
-    except Exception as e:
-        print(f"Erreur d'initialisation : {e}")
 
 
 def quitter():
