@@ -1,7 +1,7 @@
 import random
 import time
 from models import Character, Monster
-from utils import get_db, save_result
+from utils import get_db, sauvergarde_resulta, save_result
 
 
 def calculer_degats(attaquant, defenseur):
@@ -26,7 +26,6 @@ def tour_monstre(equipe, monstre):
             time.sleep(0.5)
 
 def generer_monstre(db):
-    # Prise en charge du schéma de ton script db_init.py : collection "monstre" et champ "nom".
     monsters = list(db.monstre.find()) or list(db.monsters.find())
     if not monsters:
         raise RuntimeError("Aucun monstre trouvé en base. Ajoutez des monstres dans la collection 'monstre' ou 'monsters'.")
@@ -44,7 +43,7 @@ def generer_monstre(db):
 
     return Monster(nom, atk, defense, pv)
 
-def equipe_est_vivante(equipe):
+def equipe_vivante(equipe):
     return any(c.is_alive() for c in equipe)
 
 
@@ -52,14 +51,14 @@ def debut_combat(pseudo, equipe):
     db = get_db()
     vague = 0
     
-    while equipe_est_vivante(equipe):
+    while equipe_vivante(equipe):
         vague += 1
         monstre = generer_monstre(db)
         
-        print(f"\nVague {vague} : Un {monstre.nom} viens")
+        print(f"\nVague {vague} : Un {monstre.nom} se dresse devant vous")
         print(f"PV: {monstre.pv} | ATK: {monstre.atk} | DEF: {monstre.defense}")
 
-        while monstre.is_alive() and equipe_est_vivante(equipe):
+        while monstre.is_alive() and equipe_vivante(equipe):
             tour_joueurs(equipe, monstre)
             tour_monstre(equipe, monstre)
         
@@ -68,6 +67,6 @@ def debut_combat(pseudo, equipe):
         else:
             print(f"Défaite... : {vague - 1}.")
 
-    score_final = vague if equipe_est_vivante(equipe) else vague - 1
-    save_result(pseudo, score_final)
+    score_final = vague if equipe_vivante(equipe) else vague - 1
+    sauvergarde_resulta(pseudo, score_final)
     return score_final
